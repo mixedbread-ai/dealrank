@@ -1,0 +1,31 @@
+# Random partition against dealing as the quota tightens: five hands of 20
+# that keep 4, ten hands of 10 that keep 2 and twenty hands of 5 that keep 1,
+# each followed by one final call over the 20 finalists. Every random arm
+# draws a fresh partition per query, with seeds 0, 1 and 2. Qwen3.8-27B served
+# locally, BM25 (ten benchmarks) and dense (eight benchmarks) top 100.
+#
+#   python scripts/serve_vllm.py qwen3.8-27b --gpus 0,1 --port 8000
+#   python -m repro.run configs/quota_sweep.yaml
+#
+# Expected: 12 schedules x 3,090 queries, about 455,000 calls, about 40 hours
+# on two H100s.
+
+llms: [qwen3.8-27b]
+retrievers: [bm25, dense]
+benchmarks: all
+query_concurrency: 32
+llm_options: {max_concurrency: 256}
+
+schedules:
+  - {type: dealrank, window: 20, quota: 4}
+  - {type: dealrank, window: 20, quota: 4, split: random, seed: 0, seed_per_query: true}
+  - {type: dealrank, window: 20, quota: 4, split: random, seed: 1, seed_per_query: true}
+  - {type: dealrank, window: 20, quota: 4, split: random, seed: 2, seed_per_query: true}
+  - {type: dealrank, window: 10, quota: 2, final_size: 20}
+  - {type: dealrank, window: 10, quota: 2, final_size: 20, split: random, seed: 0, seed_per_query: true}
+  - {type: dealrank, window: 10, quota: 2, final_size: 20, split: random, seed: 1, seed_per_query: true}
+  - {type: dealrank, window: 10, quota: 2, final_size: 20, split: random, seed: 2, seed_per_query: true}
+  - {type: dealrank, window: 5, quota: 1, final_size: 20}
+  - {type: dealrank, window: 5, quota: 1, final_size: 20, split: random, seed: 0, seed_per_query: true}
+  - {type: dealrank, window: 5, quota: 1, final_size: 20, split: random, seed: 1, seed_per_query: true}
+  - {type: dealrank, window: 5, quota: 1, final_size: 20, split: random, seed: 2, seed_per_query: true}

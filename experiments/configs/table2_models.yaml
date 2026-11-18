@@ -1,0 +1,45 @@
+# Table 2: DealRank and the main baselines with the six LLMs besides Gemini 3
+# Flash, BM25 top 100, ten benchmarks. Gemini 3 Flash's row comes from
+# table1_gemini.yaml and table1_gemini_repeats.yaml. BlitzRank here is this
+# library's implementation on the retriever's order; BlitzRank on dealt input
+# is not printed in Table 2 but gives Figure 1's nDCG@10 for that row. The
+# Qwen3.8-27B runs also give Table 3's nDCG@10 at 100 candidates. GPT-5.5, the
+# frontier-model check, runs DealRank and BlitzRank w=10 and is left out of the
+# table's average. DeepSeek V4-Flash and Qwen3.5-35B-A3B also run TourRank,
+# which Table 2 does not print: Section 4 compares it with DealRank across
+# the three LLMs it ran with.
+#
+#   python -m repro.run configs/table2_models.yaml [--llms kimi-k2.6]
+#
+# Qwen3.8-27B is served locally (scripts/serve_vllm.py); the rest are called
+# through OpenRouter. Expected: about 500,000 API calls, about USD 1,350, plus
+# about 104,000 local calls, about 9 hours on two H100s.
+
+benchmarks: all
+retriever: bm25
+query_concurrency: 12
+
+schedules:
+  - &dealrank {type: dealrank, window: 20, quota: 4}
+  - &blitz20 {type: blitzrank, window: 20, top_m: 10, input_order: retriever}
+  - &blitz10 {type: blitzrank, window: 10, top_m: 10, input_order: retriever}
+  - &blitz_dealt {type: blitzrank, window: 20, top_m: 10, input_order: dealt}
+  - &window {type: sliding_window, window: 20, stride: 10}
+  - &tdpart {type: tdpart, window: 20, cutoff: 10, budget: 20}
+  - &jointrank {type: jointrank, window: 20, replicates: 4}
+  - &tourrank {type: tourrank, tournaments: 1}
+
+grids:
+  - llms: [deepseek-v4-flash, qwen3.5-35b-a3b]
+    schedules: [*dealrank, *blitz20, *blitz10, *blitz_dealt, *window, *tdpart, *jointrank, *tourrank]
+  - llms: [qwen3.8-27b]
+    query_concurrency: 32
+    llm_options: {max_concurrency: 256}
+    schedules: [*dealrank, *blitz20, *blitz10, *blitz_dealt, *window, *tdpart, *jointrank]
+  - llms: [kimi-k2.6, glm-5.2]
+    llm_options: {max_concurrency: 16}
+    schedules: [*dealrank, *blitz20, *blitz10, *blitz_dealt, *window, *tdpart, *jointrank]
+  - llms: [gpt-5.5]
+    query_concurrency: 8
+    llm_options: {max_concurrency: 16}
+    schedules: [*dealrank, *blitz10]

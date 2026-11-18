@@ -1,0 +1,4 @@
+# Downloaded pools, run records and dry runs are produced locally.
+/data/
+runs/
+runs-dry-run/

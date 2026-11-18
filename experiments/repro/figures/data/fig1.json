@@ -1,0 +1,148 @@
+{
+ "setup": {
+  "retriever": "first-stage",
+  "hands": 5,
+  "window": 20,
+  "quota": 4,
+  "head": 20,
+  "certify_share": 0.5925971450860191
+ },
+ "panel_b": {
+  "unit_note": "round",
+  "ndcg_note": "mean of 6 LLMs",
+  "rows": [
+   {
+    "key": "dealrank",
+    "label": "DealRank",
+    "role": "ours",
+    "split": "dealt",
+    "path_s": 3.405927060171962,
+    "rounds": 2.0,
+    "ndcg10": 57.3628185088481,
+    "segments": [
+     {
+      "s": 1.9970595765572006,
+      "kind": "round"
+     },
+     {
+      "s": 1.4088674836147614,
+      "kind": "round"
+     }
+    ]
+   },
+   {
+    "key": "blitzrank_concurrent",
+    "label": "BlitzRank on chunks",
+    "role": "blitz",
+    "split": "chunks",
+    "path_s": 3.9933983955997974,
+    "rounds": 2.592597145086019,
+    "ndcg10": 57.4500683696718,
+    "segments": [
+     {
+      "s": 1.8267959515440693,
+      "kind": "round"
+     },
+     {
+      "s": 1.390641334538158,
+      "kind": "round"
+     },
+     {
+      "s": 0.7759611095175697,
+      "kind": "certify"
+     }
+    ],
+    "certify_share": 0.5925971450860191,
+    "rounds_max": 3,
+    "ndcg_minus_dealrank": [
+     0.08724986082369543,
+     -0.4255023738255732,
+     0.6727149015640561
+    ]
+   },
+   {
+    "key": "blitzrank_dealt",
+    "label": "BlitzRank on dealt input",
+    "role": "blitz",
+    "split": "dealt",
+    "path_s": 3.4762012239079922,
+    "rounds": 2.1371468919932317,
+    "ndcg10": 57.12002354529489,
+    "segments": [
+     {
+      "s": 1.8348250727678965,
+      "kind": "round"
+     },
+     {
+      "s": 1.4741778032218997,
+      "kind": "round"
+     },
+     {
+      "s": 0.16719834791819607,
+      "kind": "certify"
+     }
+    ],
+    "certify_share": 0.13714689199323157,
+    "rounds_max": 3,
+    "ndcg_minus_dealrank": [
+     -0.2427949635532061,
+     -0.8129105385558759,
+     0.4873255669082182
+    ]
+   },
+   {
+    "key": "sliding_window",
+    "label": "Sliding window",
+    "role": "other",
+    "split": "window",
+    "path_s": 13.387684487504885,
+    "rounds": 9.0,
+    "ndcg10": 57.45767559816367,
+    "segments": [
+     {
+      "s": 1.5297539215447005,
+      "kind": "round"
+     },
+     {
+      "s": 1.4549735644490343,
+      "kind": "round"
+     },
+     {
+      "s": 1.5707053156255573,
+      "kind": "round"
+     },
+     {
+      "s": 1.4483328204732575,
+      "kind": "round"
+     },
+     {
+      "s": 1.5074963701408628,
+      "kind": "round"
+     },
+     {
+      "s": 1.4595445486774485,
+      "kind": "round"
+     },
+     {
+      "s": 1.460086224084262,
+      "kind": "round"
+     },
+     {
+      "s": 1.4404986327609315,
+      "kind": "round"
+     },
+     {
+      "s": 1.5162930897488307,
+      "kind": "round"
+     }
+    ],
+    "quiet": true,
+    "ndcg_minus_dealrank": [
+     0.09485708931556824,
+     -0.45217204626999674,
+     0.5735904656978594
+    ]
+   }
+  ]
+ }
+}

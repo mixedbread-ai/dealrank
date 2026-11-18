@@ -1,0 +1,24 @@
+# Figure 1(b): latency on the Gemini 3 Flash API. One query in flight; for
+# each query every method runs back to back in a seeded random order; DL19,
+# DL20, TREC-COVID and Touche, three repeats (196 queries per repeat).
+# BlitzRank is the authors' package with its first calls concurrent, on
+# chunks and on dealt input.
+#
+#   python -m repro.run configs/fig1_api_timing.yaml
+#
+# Expected: 4 methods x 196 queries x 3 repeats = 2,352 reranks, about 16,000
+# calls and 71M prompt tokens, about USD 40; about 4.5 hours.
+
+llms: [gemini-3-flash]
+retriever: bm25
+benchmarks: [dl19, dl20, covid, touche]
+
+schedules:
+  - {type: dealrank, window: 20, quota: 4}
+  - {type: blitzrank_package, window: 20, top_m: 10, concurrent_cover: true}
+  - {type: blitzrank_package, window: 20, top_m: 10, input_order: dealt, concurrent_cover: true}
+  - {type: sliding_window, window: 20, stride: 10}
+
+timing:
+  repeats: 3
+  seed: 42

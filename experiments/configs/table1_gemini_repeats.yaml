@@ -1,0 +1,35 @@
+# Table 1: the extra runs behind the rows averaged over several runs.
+# DealRank, the sliding window, BlitzRank w=20 (the authors' package) and
+# BlitzRank w=20 on dealt input run twice more, as repeats 2 and 3 (repeat 1 is
+# the table1_gemini.yaml record). The random partition gets seeds 1 to 9, each
+# drawing a fresh partition per query (seed 0 is in table1_gemini.yaml), for
+# ten seeds in all.
+#
+#   python -m repro.run configs/table1_gemini_repeats.yaml
+#
+# Expected: about 168,000 LLM calls and 860M prompt tokens, about USD 475.
+
+llms: [gemini-3-flash]
+retriever: bm25
+benchmarks: all
+query_concurrency: 12
+
+schedules:
+  - &dealrank {type: dealrank, window: 20, quota: 4}
+  - &window {type: sliding_window, window: 20, stride: 10}
+  - &blitz {type: blitzrank_package, window: 20, top_m: 10}
+  - &blitz_dealt {type: blitzrank_package, window: 20, top_m: 10, input_order: dealt}
+  - &random1 {type: dealrank, window: 20, quota: 4, split: random, seed: 1, seed_per_query: true}
+  - &random2 {type: dealrank, window: 20, quota: 4, split: random, seed: 2, seed_per_query: true}
+  - &random3 {type: dealrank, window: 20, quota: 4, split: random, seed: 3, seed_per_query: true}
+  - &random4 {type: dealrank, window: 20, quota: 4, split: random, seed: 4, seed_per_query: true}
+  - &random5 {type: dealrank, window: 20, quota: 4, split: random, seed: 5, seed_per_query: true}
+  - &random6 {type: dealrank, window: 20, quota: 4, split: random, seed: 6, seed_per_query: true}
+  - &random7 {type: dealrank, window: 20, quota: 4, split: random, seed: 7, seed_per_query: true}
+  - &random8 {type: dealrank, window: 20, quota: 4, split: random, seed: 8, seed_per_query: true}
+  - &random9 {type: dealrank, window: 20, quota: 4, split: random, seed: 9, seed_per_query: true}
+
+grids:
+  - repeats: [2, 3]
+    schedules: [*dealrank, *window, *blitz, *blitz_dealt]
+  - schedules: [*random1, *random2, *random3, *random4, *random5, *random6, *random7, *random8, *random9]

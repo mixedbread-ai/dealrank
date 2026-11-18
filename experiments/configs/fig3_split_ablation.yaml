@@ -1,0 +1,42 @@
+# Figure 3: dealing the split inside other schedules, Gemini 3 Flash, BM25 and
+# dense top 100. Each schedule runs with a dealt split and with its usual one:
+# TourRank deals at every stage, against contiguous groups in its first stage
+# or in every stage; TDPart and ListK deal the first tail or bucket round,
+# against contiguous windows; BlitzRank w=10 (the authors' package) on dealt
+# input with hands of 10, against the retriever's order; JointRank's dealt
+# block design, against its random one.
+#
+# The baselines already in table1_gemini.yaml (TourRank, TDPart, JointRank and
+# BlitzRank w=10 over BM25) run here only over the dense pools. DealRank's and
+# BlitzRank w=20's rows pair table1_gemini.yaml with dense_gemini.yaml.
+#
+#   python -m repro.run configs/fig3_split_ablation.yaml
+#
+# Needs the dense pools. Expected: about 342,000 LLM calls and 1.4G prompt tokens,
+# about USD 760.
+
+llms: [gemini-3-flash]
+benchmarks: all
+query_concurrency: 12
+
+schedules:
+  - &tourrank {type: tourrank, tournaments: 1}
+  - &tourrank_first {type: tourrank, tournaments: 1, split: chunks_first}
+  - &tourrank_chunks {type: tourrank, tournaments: 1, split: chunks}
+  - &tdpart {type: tdpart, window: 20, cutoff: 10, budget: 20}
+  - &tdpart_deal {type: tdpart, window: 20, cutoff: 10, budget: 20, tail_split: deal}
+  - &listk {type: listk, top_k: 10, window: 20, select_pivots: 16, physical_pivots: 2, sort_pivots: 6}
+  - &listk_deal {type: listk, top_k: 10, window: 20, select_pivots: 16, physical_pivots: 2, sort_pivots: 6,
+                 bucket_split: deal}
+  - &blitz10 {type: blitzrank_package, window: 10, top_m: 10}
+  - &blitz10_dealt {type: blitzrank_package, window: 10, top_m: 10, input_order: dealt}
+  - &jointrank {type: jointrank, window: 20, replicates: 4}
+  - &jointrank_dealt {type: jointrank, window: 20, replicates: 4, design: dealt}
+
+grids:
+  - retriever: bm25
+    schedules: [*tourrank_first, *tourrank_chunks, *tdpart_deal, *listk, *listk_deal, *blitz10_dealt,
+                *jointrank_dealt]
+  - retriever: dense
+    schedules: [*tourrank, *tourrank_first, *tourrank_chunks, *tdpart, *tdpart_deal, *listk, *listk_deal,
+                *blitz10, *blitz10_dealt, *jointrank, *jointrank_dealt]

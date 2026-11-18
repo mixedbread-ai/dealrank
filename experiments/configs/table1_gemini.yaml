@@ -1,0 +1,32 @@
+# Table 1, nDCG@10 and cost columns: every method with Gemini 3 Flash on the
+# BM25 top 100 of the ten benchmarks (1,622 queries), one run each.
+#
+#   python -m repro.run configs/table1_gemini.yaml
+#
+# Expected: about 144,000 LLM calls and 650M prompt tokens, about USD 360 at the
+# prices in models.yaml.
+#
+# The rows "BlitzRank w=20, concurrent" and "BlitzRank w=20, dealt, concurrent"
+# reuse the records of the sequential package runs below: the analysis issues
+# their first, mutually disjoint calls as one round. The second and third runs
+# of DealRank, the sliding window and BlitzRank w=20, and the other nine seeds
+# of the random partition, are in table1_gemini_repeats.yaml.
+
+llms: [gemini-3-flash]
+retriever: bm25
+benchmarks: all
+query_concurrency: 12
+
+schedules:
+  - {type: retriever}                                   # BM25 order, no call
+  - {type: top_prefix, size: 20}                        # one call over the top 20
+  - {type: sliding_window, window: 20, stride: 10}
+  - {type: tourrank, tournaments: 1}
+  - {type: tdpart, window: 20, cutoff: 10, budget: 20}
+  - {type: jointrank, window: 20, replicates: 4}
+  - {type: blitzrank_package, window: 10, top_m: 10}    # the authors' package
+  - {type: blitzrank_package, window: 20, top_m: 10}
+  - {type: dealrank, window: 20, quota: 4, split: chunks}
+  - {type: blitzrank_package, window: 20, top_m: 10, input_order: dealt}
+  - {type: dealrank, window: 20, quota: 4, split: random, seed: 0, seed_per_query: true}
+  - {type: dealrank, window: 20, quota: 4}

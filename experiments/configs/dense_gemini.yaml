@@ -1,0 +1,20 @@
+# Figure 3 and the dense-retriever ablation: Gemini 3 Flash on the
+# Qwen3-Embedding-4B top 100 of the eight benchmarks with a public corpus
+# (1,468 queries): the ten benchmarks but Signal and News.
+#
+#   python -m repro.run configs/dense_gemini.yaml
+#
+# Needs the dense pools (python -m repro.data dense, a GPU step).
+# Expected: about 50,000 LLM calls and 250M prompt tokens, about USD 140.
+
+llms: [gemini-3-flash]
+retriever: dense
+benchmarks: all
+query_concurrency: 12
+
+schedules:
+  - {type: sliding_window, window: 20, stride: 10}
+  - {type: blitzrank_package, window: 20, top_m: 10}
+  - {type: dealrank, window: 20, quota: 4, split: chunks}
+  - {type: blitzrank_package, window: 20, top_m: 10, input_order: dealt}
+  - {type: dealrank, window: 20, quota: 4}

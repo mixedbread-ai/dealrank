@@ -1,0 +1,494 @@
+{
+ "config": {
+  "N": 100,
+  "H": 5,
+  "w": 20,
+  "q": 4,
+  "k": 10
+ },
+ "random_partition": {
+  "e_cut": 0.14906959748428944
+ },
+ "points": [
+  {
+   "key": "bm25_chunk",
+   "split": "chunk",
+   "retriever": "BM25",
+   "value": 1.9552438209752838,
+   "ci": [
+    1.865063460253841,
+    2.0480961923847696
+   ],
+   "mean_rank_top10": 27.289779559118237
+  },
+  {
+   "key": "dense_chunk",
+   "split": "chunk",
+   "retriever": "dense",
+   "value": 2.758174386920981,
+   "ci": [
+    2.6641689373297,
+    2.8501362397820165
+   ],
+   "mean_rank_top10": 21.379155313351497
+  },
+  {
+   "key": "bm25_deal",
+   "split": "deal",
+   "retriever": "BM25",
+   "value": 0.09485637942551771,
+   "ci": [
+    0.0781563126252505,
+    0.11155644622578491
+   ],
+   "mean_rank_top10": 27.289779559118237
+  },
+  {
+   "key": "dense_deal",
+   "split": "deal",
+   "retriever": "dense",
+   "value": 0.05926430517711172,
+   "ci": [
+    0.04632152588555858,
+    0.07356948228882834
+   ],
+   "mean_rank_top10": 21.379155313351497
+  }
+ ],
+ "pools": [
+  {
+   "retriever": "bm25",
+   "benchmark": "dl19",
+   "split": "chunk",
+   "mean_rank_top10": 29.490697674418602,
+   "measured": 1.6046511627906976
+  },
+  {
+   "retriever": "bm25",
+   "benchmark": "dl19",
+   "split": "deal",
+   "mean_rank_top10": 29.490697674418602,
+   "measured": 0.06976744186046512
+  },
+  {
+   "retriever": "bm25",
+   "benchmark": "dl20",
+   "split": "chunk",
+   "mean_rank_top10": 26.687037037037037,
+   "measured": 2.0925925925925926
+  },
+  {
+   "retriever": "bm25",
+   "benchmark": "dl20",
+   "split": "deal",
+   "mean_rank_top10": 26.687037037037037,
+   "measured": 0.037037037037037035
+  },
+  {
+   "retriever": "bm25",
+   "benchmark": "covid",
+   "split": "chunk",
+   "mean_rank_top10": 36.792,
+   "measured": 0.88
+  },
+  {
+   "retriever": "bm25",
+   "benchmark": "covid",
+   "split": "deal",
+   "mean_rank_top10": 36.792,
+   "measured": 0.12
+  },
+  {
+   "retriever": "bm25",
+   "benchmark": "nfcorpus",
+   "split": "chunk",
+   "mean_rank_top10": 23.546999999999997,
+   "measured": 2.535
+  },
+  {
+   "retriever": "bm25",
+   "benchmark": "nfcorpus",
+   "split": "deal",
+   "mean_rank_top10": 23.546999999999997,
+   "measured": 0.075
+  },
+  {
+   "retriever": "bm25",
+   "benchmark": "signal",
+   "split": "chunk",
+   "mean_rank_top10": 29.6979381443299,
+   "measured": 1.9381443298969072
+  },
+  {
+   "retriever": "bm25",
+   "benchmark": "signal",
+   "split": "deal",
+   "mean_rank_top10": 29.6979381443299,
+   "measured": 0.061855670103092786
+  },
+  {
+   "retriever": "bm25",
+   "benchmark": "news",
+   "split": "chunk",
+   "mean_rank_top10": 26.510526315789473,
+   "measured": 1.8596491228070176
+  },
+  {
+   "retriever": "bm25",
+   "benchmark": "news",
+   "split": "deal",
+   "mean_rank_top10": 26.510526315789473,
+   "measured": 0.017543859649122806
+  },
+  {
+   "retriever": "bm25",
+   "benchmark": "robust04",
+   "split": "chunk",
+   "mean_rank_top10": 29.765060240963855,
+   "measured": 1.538152610441767
+  },
+  {
+   "retriever": "bm25",
+   "benchmark": "robust04",
+   "split": "deal",
+   "mean_rank_top10": 29.765060240963855,
+   "measured": 0.15261044176706828
+  },
+  {
+   "retriever": "bm25",
+   "benchmark": "touche",
+   "split": "chunk",
+   "mean_rank_top10": 27.934693877551023,
+   "measured": 1.8979591836734695
+  },
+  {
+   "retriever": "bm25",
+   "benchmark": "touche",
+   "split": "deal",
+   "mean_rank_top10": 27.934693877551023,
+   "measured": 0.08163265306122448
+  },
+  {
+   "retriever": "bm25",
+   "benchmark": "dbpedia",
+   "split": "chunk",
+   "mean_rank_top10": 29.660401002506266,
+   "measured": 1.5964912280701755
+  },
+  {
+   "retriever": "bm25",
+   "benchmark": "dbpedia",
+   "split": "deal",
+   "mean_rank_top10": 29.660401002506266,
+   "measured": 0.12781954887218044
+  },
+  {
+   "retriever": "bm25",
+   "benchmark": "scifact",
+   "split": "chunk",
+   "mean_rank_top10": 22.03344481605351,
+   "measured": 2.632107023411371
+  },
+  {
+   "retriever": "bm25",
+   "benchmark": "scifact",
+   "split": "deal",
+   "mean_rank_top10": 22.03344481605351,
+   "measured": 0.05351170568561873
+  },
+  {
+   "retriever": "dense",
+   "benchmark": "dl19",
+   "split": "chunk",
+   "mean_rank_top10": 17.267441860465116,
+   "measured": 3.558139534883721
+  },
+  {
+   "retriever": "dense",
+   "benchmark": "dl19",
+   "split": "deal",
+   "mean_rank_top10": 17.267441860465116,
+   "measured": 0.0
+  },
+  {
+   "retriever": "dense",
+   "benchmark": "dl20",
+   "split": "chunk",
+   "mean_rank_top10": 15.831481481481482,
+   "measured": 3.6296296296296298
+  },
+  {
+   "retriever": "dense",
+   "benchmark": "dl20",
+   "split": "deal",
+   "mean_rank_top10": 15.831481481481482,
+   "measured": 0.07407407407407407
+  },
+  {
+   "retriever": "dense",
+   "benchmark": "covid",
+   "split": "chunk",
+   "mean_rank_top10": 32.672,
+   "measured": 1.32
+  },
+  {
+   "retriever": "dense",
+   "benchmark": "covid",
+   "split": "deal",
+   "mean_rank_top10": 32.672,
+   "measured": 0.04
+  },
+  {
+   "retriever": "dense",
+   "benchmark": "nfcorpus",
+   "split": "chunk",
+   "mean_rank_top10": 19.624148606811143,
+   "measured": 3.111455108359133
+  },
+  {
+   "retriever": "dense",
+   "benchmark": "nfcorpus",
+   "split": "deal",
+   "mean_rank_top10": 19.624148606811143,
+   "measured": 0.06191950464396285
+  },
+  {
+   "retriever": "dense",
+   "benchmark": "robust04",
+   "split": "chunk",
+   "mean_rank_top10": 22.32289156626506,
+   "measured": 2.5060240963855422
+  },
+  {
+   "retriever": "dense",
+   "benchmark": "robust04",
+   "split": "deal",
+   "mean_rank_top10": 22.32289156626506,
+   "measured": 0.06827309236947791
+  },
+  {
+   "retriever": "dense",
+   "benchmark": "touche",
+   "split": "chunk",
+   "mean_rank_top10": 28.036734693877545,
+   "measured": 1.7755102040816326
+  },
+  {
+   "retriever": "dense",
+   "benchmark": "touche",
+   "split": "deal",
+   "mean_rank_top10": 28.036734693877545,
+   "measured": 0.061224489795918366
+  },
+  {
+   "retriever": "dense",
+   "benchmark": "dbpedia",
+   "split": "chunk",
+   "mean_rank_top10": 23.90375,
+   "measured": 2.265
+  },
+  {
+   "retriever": "dense",
+   "benchmark": "dbpedia",
+   "split": "deal",
+   "mean_rank_top10": 23.90375,
+   "measured": 0.0725
+  },
+  {
+   "retriever": "dense",
+   "benchmark": "scifact",
+   "split": "chunk",
+   "mean_rank_top10": 17.737666666666666,
+   "measured": 3.3733333333333335
+  },
+  {
+   "retriever": "dense",
+   "benchmark": "scifact",
+   "split": "deal",
+   "mean_rank_top10": 17.737666666666666,
+   "measured": 0.04
+  }
+ ],
+ "mallows_curve": [
+  {
+   "mean_rank_top10": 47.515500481970896,
+   "chunk": 0.17401205813471832,
+   "deal": 0.14811022907286994
+  },
+  {
+   "mean_rank_top10": 47.07055151901827,
+   "chunk": 0.18248921407409519,
+   "deal": 0.14780658741613054
+  },
+  {
+   "mean_rank_top10": 46.5640823519488,
+   "chunk": 0.1938222867606021,
+   "deal": 0.14741213699633043
+  },
+  {
+   "mean_rank_top10": 45.98970055810907,
+   "chunk": 0.20890322457494293,
+   "deal": 0.14690298117041095
+  },
+  {
+   "mean_rank_top10": 45.34117332917423,
+   "chunk": 0.22883291400740935,
+   "deal": 0.14625070922239447
+  },
+  {
+   "mean_rank_top10": 44.612740477079136,
+   "chunk": 0.25492788946935696,
+   "deal": 0.1454223655650305
+  },
+  {
+   "mean_rank_top10": 43.79947893719822,
+   "chunk": 0.2887093920930257,
+   "deal": 0.14438077878657946
+  },
+  {
+   "mean_rank_top10": 42.897696247886905,
+   "chunk": 0.33187098612446697,
+   "deal": 0.14308533902941312
+  },
+  {
+   "mean_rank_top10": 41.90532189710544,
+   "chunk": 0.38622092814836506,
+   "deal": 0.14149328852661888
+  },
+  {
+   "mean_rank_top10": 40.82225892822205,
+   "chunk": 0.4535972648359713,
+   "deal": 0.1395615508017596
+  },
+  {
+   "mean_rank_top10": 39.650654993052974,
+   "chunk": 0.5357592243576225,
+   "deal": 0.13724906434559453
+  },
+  {
+   "mean_rank_top10": 38.395054563228086,
+   "chunk": 0.6342651968294277,
+   "deal": 0.13451950913196664
+  },
+  {
+   "mean_rank_top10": 37.06240445218777,
+   "chunk": 0.7503505147640525,
+   "deal": 0.13134423380662416
+  },
+  {
+   "mean_rank_top10": 35.661902401179134,
+   "chunk": 0.8848166325994119,
+   "deal": 0.12770512738578405
+  },
+  {
+   "mean_rank_top10": 34.20469894627022,
+   "chunk": 1.0379409788555956,
+   "deal": 0.12359714569258552
+  },
+  {
+   "mean_rank_top10": 32.70348074384053,
+   "chunk": 1.209415650868812,
+   "deal": 0.11903020560356743
+  },
+  {
+   "mean_rank_top10": 31.171975390286278,
+   "chunk": 1.3983213820792113,
+   "deal": 0.11403020128669816
+  },
+  {
+   "mean_rank_top10": 29.624422458474804,
+   "chunk": 1.6031398648114261,
+   "deal": 0.10863897183636424
+  },
+  {
+   "mean_rank_top10": 28.075053619482336,
+   "chunk": 1.8218038449987382,
+   "deal": 0.10291314559767972
+  },
+  {
+   "mean_rank_top10": 26.537617834126486,
+   "chunk": 2.0517813148026693,
+   "deal": 0.09692188943883569
+  },
+  {
+   "mean_rank_top10": 25.024977672206973,
+   "chunk": 2.2901875422031996,
+   "deal": 0.09074370202366691
+  },
+  {
+   "mean_rank_top10": 23.54879192745801,
+   "chunk": 2.5339164834254966,
+   "deal": 0.08446251333240873
+  },
+  {
+   "mean_rank_top10": 22.11928958492712,
+   "chunk": 2.779781471533744,
+   "deal": 0.07816346490726761
+  },
+  {
+   "mean_rank_top10": 20.745132006680343,
+   "chunk": 3.024654294842405,
+   "deal": 0.07192879703148199
+  },
+  {
+   "mean_rank_top10": 19.433354444047186,
+   "chunk": 3.2655922002479447,
+   "deal": 0.06583423219245024
+  },
+  {
+   "mean_rank_top10": 18.189374661170515,
+   "chunk": 3.4999440571560645,
+   "deal": 0.05994613863686021
+  },
+  {
+   "mean_rank_top10": 17.01705521485001,
+   "chunk": 3.7254296340584347,
+   "deal": 0.0543196252823728
+  },
+  {
+   "mean_rank_top10": 15.918806229646144,
+   "chunk": 3.9401891720291258,
+   "deal": 0.04899759145701833
+  },
+  {
+   "mean_rank_top10": 14.895716732025578,
+   "chunk": 4.142803625352914,
+   "deal": 0.04401064937964222
+  },
+  {
+   "mean_rank_top10": 13.94770424261665,
+   "chunk": 4.33228860362136,
+   "deal": 0.03937776384681266
+  },
+  {
+   "mean_rank_top10": 13.073674018918712,
+   "chunk": 4.5080668959976515,
+   "deal": 0.03510741597860548
+  },
+  {
+   "mean_rank_top10": 12.2716809128204,
+   "chunk": 4.669925396499395,
+   "deal": 0.0311990929418605
+  },
+  {
+   "mean_rank_top10": 11.539088200226256,
+   "chunk": 4.817962358911576,
+   "deal": 0.027644925085926732
+  },
+  {
+   "mean_rank_top10": 10.872718958663636,
+   "chunk": 4.952530377501407,
+   "deal": 0.024431325913369575
+  },
+  {
+   "mean_rank_top10": 10.268996641244826,
+   "chunk": 5.074179545749227,
+   "deal": 0.021540529706153812
+  },
+  {
+   "mean_rank_top10": 9.724072452186828,
+   "chunk": 5.183604115502625,
+   "deal": 0.018951959671865973
+  }
+ ]
+}
